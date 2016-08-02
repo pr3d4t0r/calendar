@@ -1,0 +1,22 @@
+ServerName calendar.example.org
+
+<VirtualHost *:80>
+	DocumentRoot /var/www/calendar_server/html
+	ServerName calendar.example.org
+	
+    RewriteEngine On
+    RewriteRule /.well-known/carddav /dav.php [R,L]
+    RewriteRule /.well-known/caldav /dav.php [R,L]
+
+	<Directory "/var/www/calendar_server/html">
+		Options None
+		Options +FollowSymlinks
+		AllowOverride All
+
+		Require all granted
+	</Directory>
+
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
