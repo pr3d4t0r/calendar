@@ -34,7 +34,7 @@ RUN                     echo "APT::Get::Assume-Yes true;" >> /etc/apt/apt.conf.d
 # names.
 RUN                     echo "postfix postfix/mailname string calendar.example.org" | debconf-set-selections && \
                         echo "postfix postfix/main_mailer_type string 'Satellite system'" | debconf-set-selections && \
-                        echo "postfix postfix/relayhost string varenka.example.org" | debconf-set-selections && \
+                        echo "postfix postfix/relayhost string smtp.example.org" | debconf-set-selections && \
                         echo "postfix postfix/root_address string cal-bounce@example.org" | debconf-set-selections
 
 

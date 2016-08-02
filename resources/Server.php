@@ -173,7 +173,7 @@ class Server {
             // http://sabre.io/dav/scheduling/
             // https://groups.google.com/forum/#!searchin/sabredav-discuss/scheduling|sort:relevance/sabredav-discuss/CrGZXqw4sRw/vsHYq6FDcnkJ
             // This needs to be patched on the Baikal start up Server.php, NOT in the SabreDAV server.
-            $this->server->addPlugin(new \Sabre\CalDAV\Schedule\IMipPlugin('calendar-bounce@caledar.example.org'));
+            $this->server->addPlugin(new \Sabre\CalDAV\Schedule\IMipPlugin('calendar-bounce@smtp.example.org'));
         }
         if ($this->enableCardDAV) {
             $this->server->addPlugin(new \Sabre\CardDAV\Plugin());
