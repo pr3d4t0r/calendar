@@ -34,7 +34,7 @@ RUN                     echo "APT::Get::Assume-Yes true;" >> /etc/apt/apt.conf.d
 # names.
 RUN                     echo "postfix postfix/mailname string calendar.example.org" | debconf-set-selections && \
                         echo "postfix postfix/main_mailer_type string 'Satellite system'" | debconf-set-selections && \
-                        echo "postfix postfix/relayhost string smtp.example.org" | debconf-set-selections && \
+                        echo "postfix postfix/relayhost string smtpcal.example.org" | debconf-set-selections && \
                         echo "postfix postfix/root_address string cal-bounce@example.org" | debconf-set-selections
 
 
@@ -56,8 +56,16 @@ COPY                    resources/Server.php /var/www/calendar_server/Core/Frame
 
 COPY                    resources/baikal.apache2 /var/www/calendar_server/Specific/virtualhosts/baikal.apache2
 COPY                    cal_infox.php /var/www/calendar_server/html/
-COPY                    resources/config.php /var/www/calendar_server/Specific/
-COPY                    resources/config.system.php /var/www/calendar_server/Specific/
+
+# The Baikal administration wizard creates these two config files when first run.  Preserve them
+# and save them to the resources/ directory.  These files must be preserved for upgrades.
+# Both files are already in the .gitignore file.
+#
+# To use them:  uncomment these two lines and copy them to the Specific/ directory, per the
+# Baikal upgrade instructions at:  http://sabre.io/baikal/upgrade/
+# COPY                    resources/config.php /var/www/calendar_server/Specific/
+# COPY                    resources/config.system.php /var/www/calendar_server/Specific/
+
 
 WORKDIR                 /var/www/calendar_server
 RUN                     chown -Rf www-data:www-data Specific

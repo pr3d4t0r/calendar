@@ -1,6 +1,10 @@
-**swp
 **cime
 **org
+**swp
 db/**
+resources/config**
 swapenv
-webcommon**
+web
+webbuild
+webcommon
+webstop
