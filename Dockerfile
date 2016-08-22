@@ -48,7 +48,7 @@ RUN                     apt-get install sqlite3
 RUN                     apt-get install php
 RUN                     apt-get install libapache2-mod-php
 RUN                     apt-get install php-sqlite3
-RUN                     apt-get install php-swiftmailer
+# RUN                     apt-get install php-swiftmailer
 RUN                     apt-get install tree
 RUN                     apt-get install unzip
 
@@ -85,6 +85,14 @@ WORKDIR                 /etc/apache2/sites-available
 RUN                     /etc/init.d/apache2 stop ; a2enmod rewrite
 RUN                     mv -f 000-default.conf ..
 RUN                     ln -s /var/www/calendar_server/Specific/virtualhosts/baikal.apache2 000-default.conf
+
+### "php5_6"
+# Baikal 0.4.5 doesn't work with PHP 7.0 / Ubuntu
+RUN                     apt-get install software-properties-common
+RUN                     add-apt-repository ppa:ondrej/php && apt-get update
+RUN                     apt-get install php5.6
+RUN                     apt-get install php5.6-sqlite3
+RUN                     a2dismod php7.0 && a2enmod php5.6
 
 
 ### "web-server-configuration-and-launch"
