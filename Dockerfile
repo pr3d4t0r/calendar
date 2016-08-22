@@ -51,7 +51,6 @@ RUN                     apt-get install php-date
 RUN                     apt-get install php-dom
 RUN                     apt-get install php-mbstring
 RUN                     apt-get install php-sqlite3
-RUN                     apt-get install tree
 RUN                     apt-get install unzip
 
 
