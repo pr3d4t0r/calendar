@@ -1,4 +1,4 @@
-FROM                    ubuntu:14.04
+FROM                    ubuntu:16.04
 MAINTAINER              pr3d4t0r
 
 
@@ -39,7 +39,18 @@ RUN                     echo "postfix postfix/mailname string calendar.example.o
 
 
 ### "system-requirements"
-RUN                     apt-get install apache2 curl php5 postfix sqlite3 php5-sqlite unzip mailutils
+RUN                     apt-get install apache2
+RUN                     apt-get install curl
+RUN                     apt-get install postfix 
+RUN                     apt-get install mailutils
+RUN                     apt-get install rsyslog
+RUN                     apt-get install sqlite3
+RUN                     apt-get install php
+RUN                     apt-get install libapache2-mod-php
+RUN                     apt-get install php-sqlite3
+RUN                     apt-get install php-swiftmailer
+RUN                     apt-get install tree
+RUN                     apt-get install unzip
 
 
 ### "Baikal-installation"
