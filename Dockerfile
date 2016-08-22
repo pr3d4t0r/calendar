@@ -1,4 +1,4 @@
-FROM                    ubuntu:14.04
+FROM                    ubuntu:16.04
 MAINTAINER              pr3d4t0r
 
 
@@ -39,7 +39,19 @@ RUN                     echo "postfix postfix/mailname string calendar.example.o
 
 
 ### "system-requirements"
-RUN                     apt-get install apache2 curl php5 postfix sqlite3 php5-sqlite unzip mailutils
+RUN                     apt-get install apache2
+RUN                     apt-get install curl
+RUN                     apt-get install postfix 
+RUN                     apt-get install mailutils
+RUN                     apt-get install rsyslog
+RUN                     apt-get install sqlite3
+RUN                     apt-get install php
+RUN                     apt-get install libapache2-mod-php
+RUN                     apt-get install php-date
+RUN                     apt-get install php-dom
+RUN                     apt-get install php-mbstring
+RUN                     apt-get install php-sqlite3
+RUN                     apt-get install unzip
 
 
 ### "Baikal-installation"
@@ -74,6 +86,7 @@ WORKDIR                 /etc/apache2/sites-available
 RUN                     /etc/init.d/apache2 stop ; a2enmod rewrite
 RUN                     mv -f 000-default.conf ..
 RUN                     ln -s /var/www/calendar_server/Specific/virtualhosts/baikal.apache2 000-default.conf
+RUN                     echo "error_log = syslog" >> /etc/php/7.0/apache2/php.ini
 
 
 ### "web-server-configuration-and-launch"
