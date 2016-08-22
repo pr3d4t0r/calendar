@@ -93,6 +93,8 @@ RUN                     add-apt-repository ppa:ondrej/php && apt-get update
 RUN                     apt-get install php5.6
 RUN                     apt-get install php5.6-sqlite3
 RUN                     a2dismod php7.0 && a2enmod php5.6
+# DDT - remove!
+RUN                     echo "error_log = syslog" >> /etc/php/5.6/apache2/php.ini
 
 
 ### "web-server-configuration-and-launch"
