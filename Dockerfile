@@ -47,8 +47,10 @@ RUN                     apt-get install rsyslog
 RUN                     apt-get install sqlite3
 RUN                     apt-get install php
 RUN                     apt-get install libapache2-mod-php
+RUN                     apt-get install php-date
+RUN                     apt-get install php-dom
+RUN                     apt-get install php-mbstring
 RUN                     apt-get install php-sqlite3
-# RUN                     apt-get install php-swiftmailer
 RUN                     apt-get install tree
 RUN                     apt-get install unzip
 
@@ -85,16 +87,7 @@ WORKDIR                 /etc/apache2/sites-available
 RUN                     /etc/init.d/apache2 stop ; a2enmod rewrite
 RUN                     mv -f 000-default.conf ..
 RUN                     ln -s /var/www/calendar_server/Specific/virtualhosts/baikal.apache2 000-default.conf
-
-### "php5_6"
-# Baikal 0.4.5 doesn't work with PHP 7.0 / Ubuntu
-RUN                     apt-get install software-properties-common
-RUN                     add-apt-repository ppa:ondrej/php && apt-get update
-RUN                     apt-get install php5.6
-RUN                     apt-get install php5.6-sqlite3
-RUN                     a2dismod php7.0 && a2enmod php5.6
-# DDT - remove!
-RUN                     echo "error_log = syslog" >> /etc/php/5.6/apache2/php.ini
+RUN                     echo "error_log = syslog" >> /etc/php/7.0/apache2/php.ini
 
 
 ### "web-server-configuration-and-launch"
