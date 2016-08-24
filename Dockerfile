@@ -56,7 +56,7 @@ RUN                     apt-get install unzip
 
 ### "Baikal-installation"
 WORKDIR                 /var/www
-RUN                     curl -LO https://github.com/fruux/Baikal/releases/download/0.4.5/baikal-0.4.5.zip && unzip baikal-0.4.5.zip && rm -f baikal-0.4.5.zip
+RUN                     curl -LO https://github.com/fruux/Baikal/releases/download/0.4.6/baikal-0.4.6.zip && unzip baikal-0.4.6.zip && rm -f baikal-0.4.6.zip
 RUN                     mv baikal calendar_server
 RUN                     rm -Rvf /var/www/calendar_server/Specific/db/.empty
 
