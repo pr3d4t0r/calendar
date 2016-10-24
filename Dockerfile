@@ -3,10 +3,11 @@ MAINTAINER              pr3d4t0r
 
 
 LABEL                   author="pr3d4t0r - Eugene Ciurana"
-LABEL                   copyright="(c) Copyright 2015, 2016 by Eugene Ciurana/pr3d4t0r and CIME Software Ltd."
+LABEL                   copyright="(c) Copyright 2015, 2016 by CIME Software Ltd."
 LABEL                   description="Baikal / SabreDAV robust calendar and address book server with scheduling and email notifications"
+LABEL                   license="See: LICENSE.txt for complete licensing information."
 LABEL                   support="caldav AT cime.net"
-LABEL                   version="2.0"
+LABEL                   version="2.1"
 
 
 ### "set-locale"

@@ -1,7 +1,26 @@
 #!/bin/bash
 
-hostname calendar.example.org
-domainname example.org
+# Copyright (c) 2016 by CIME Software Ltd.  All rights reserved.
+
+# See: LICENSE.txt for complete licensing information.
+
+
+if [[ -n "$CONTAINER_DOMAIN_NAME" ]]
+then
+    DOMAIN_NAME="$CONTAINER_DOMAIN_NAME"
+else
+    DOMAIN_NAME="example.org"
+fi
+
+if [[ -n "$CONTAINER_HOST_NAME" ]]
+then
+    HOST_NAME="$CONTAINER_HOST_NAME"
+else
+    HOST_NAME="calendar"
+fi
+
+hostname "$HOST_NAME.$DOMAIN_NAME"
+domainname "$DOMAIN_NAME"
 
 source /etc/apache2/envvars
 

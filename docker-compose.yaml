@@ -1,0 +1,21 @@
+# Copyright (c) 2016 by CIME Software Ltd.  All rights reserved.
+
+# See: LICENSE.txt for complete licensing information.
+
+
+version: '2'
+
+
+services:
+    baikal:
+        container_name: calendar
+        image:  pr3d4t0r/calendar
+        environment:
+            CONTAINER_DOMAIN_NAME: "example.org"
+            CONTAINER_HOST_NAME: "calendar"
+        ports:
+            - "8800:80"
+        privileged: true
+        volumes:
+            - ${PWD}/db:/var/www/calendar_server/Specific/db
+
