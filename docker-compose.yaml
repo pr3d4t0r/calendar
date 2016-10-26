@@ -9,7 +9,7 @@ version: '2'
 services:
     baikal:
         container_name: calendar
-        image:  pr3d4t0r/calendar
+        image:  yourdockerhubname/calendar
         environment:
             CONTAINER_DOMAIN_NAME: "example.org"
             CONTAINER_HOST_NAME: "calendar"
