@@ -11,15 +11,15 @@ LABEL                   version="2.1"
 
 
 ### "set-locale"
-RUN                     locale-gen en_US.UTF-8 && \
-                        update-locale LANG=en_US.UTF-8 && \
-                        update-locale LANGUAGE=en_US.UTF-8 && \
-                        update-locale LC_ALL=en_US.UTF-8
+#RUN                     locale-gen en_US.UTF-8 && \
+#                        update-locale LANG=en_US.UTF-8 && \
+#                        update-locale LANGUAGE=en_US.UTF-8 && \
+#                        update-locale LC_ALL=en_US.UTF-8
 
-ENV                     LANG en_US.UTF-8
-ENV                     LANGUAGE en_US:en
-ENV                     LC_ALL en_US.UTF-8
-ENV                     TERM=xterm
+#ENV                     LANG en_US.UTF-8
+#ENV                     LANGUAGE en_US:en
+#ENV                     LC_ALL en_US.UTF-8
+#ENV                     TERM=xterm
 
 
 ### "configure-apt"
@@ -28,21 +28,27 @@ RUN                     echo "APT::Get::Assume-Yes true;" >> /etc/apt/apt.conf.d
                         rm -Rvf /var/lib/apt/lists/*; \
                         apt-get update
 
+RUN apt-get -y install python python-dev curl unzip && cd /tmp && \
+    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" \
+    -o "awscli-bundle.zip" && \
+    unzip awscli-bundle.zip && \
+    ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws && \
+    rm awscli-bundle.zip && rm -rf awscli-bundle
 
 ### "configure-postfix"
 #
 # These parameters are specific to your own Postfix relay!  Use your host and domain
 # names.
-RUN                     echo "postfix postfix/mailname string calendar.example.org" | debconf-set-selections && \
+RUN                     echo "postfix postfix/mailname string calendar.myathleteone.com" | debconf-set-selections && \
                         echo "postfix postfix/main_mailer_type string 'Satellite system'" | debconf-set-selections && \
-                        echo "postfix postfix/relayhost string smtpcal.example.org" | debconf-set-selections && \
-                        echo "postfix postfix/root_address string cal-bounce@example.org" | debconf-set-selections
+                        echo "postfix postfix/relayhost string mail" | debconf-set-selections && \
+                        echo "postfix postfix/root_address string noreply@myathleteone.com" | debconf-set-selections
 
 
 ### "system-requirements"
 RUN                     apt-get install apache2
 RUN                     apt-get install curl
-RUN                     apt-get install postfix 
+RUN                     apt-get install postfix
 RUN                     apt-get install mailutils
 RUN                     apt-get install rsyslog
 RUN                     apt-get install sqlite3
@@ -51,7 +57,7 @@ RUN                     apt-get install libapache2-mod-php
 RUN                     apt-get install php-date
 RUN                     apt-get install php-dom
 RUN                     apt-get install php-mbstring
-RUN                     apt-get install php-sqlite3
+RUN                     apt-get install php-mysql
 RUN                     apt-get install unzip
 
 
@@ -76,8 +82,9 @@ COPY                    cal_infox.php /var/www/calendar_server/html/
 #
 # To use them:  uncomment these two lines and copy them to the Specific/ directory, per the
 # Baikal upgrade instructions at:  http://sabre.io/baikal/upgrade/
-# COPY                    resources/config.php /var/www/calendar_server/Specific/
-# COPY                    resources/config.system.php /var/www/calendar_server/Specific/
+ COPY                    resources/config.php /var/www/calendar_server/Specific/
+ COPY                    bin/mysql_config.sh /tmp/mysql_config.sh
+ COPY                resources/htaccess /var/www/calendar_server/Specific/.htaccess
 
 
 WORKDIR                 /var/www/calendar_server
@@ -99,4 +106,3 @@ RUN                     awk '/vim: syntax/ { printf("# Poxy; CVE-2016-5387\nLoad
 RUN                     cat /tmp/apache2.conf > /etc/apache2/apache2.conf && rm /tmp/apache2.conf
 
 ENTRYPOINT                [ "/runapache2" ]
-

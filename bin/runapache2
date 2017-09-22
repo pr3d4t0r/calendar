@@ -4,7 +4,6 @@
 
 # See: LICENSE.txt for complete licensing information.
 
-
 if [[ -n "$CONTAINER_DOMAIN_NAME" ]]
 then
     DOMAIN_NAME="$CONTAINER_DOMAIN_NAME"
@@ -27,8 +26,9 @@ source /etc/apache2/envvars
 mkdir -p "$APACHE_LOCK_DIR"
 mkdir -p "$APACHE_RUN_DIR"
 
+/tmp/mysql_config.sh
+
 service rsyslog start
 service postfix start
 
-/usr/sbin/apache2 -DFOREGROUND
-
+/usr/sbin/apache2 -D FOREGROUND
