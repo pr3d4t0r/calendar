@@ -59,6 +59,7 @@ RUN                     apt-get install php-dom
 RUN                     apt-get install php-mbstring
 RUN                     apt-get install php-mysql
 RUN                     apt-get install unzip
+RUN                     apt-get install jq
 
 
 ### "Baikal-installation"
@@ -76,6 +77,7 @@ COPY                    resources/Server.php /var/www/calendar_server/Core/Frame
 COPY                    resources/baikal.apache2 /var/www/calendar_server/Specific/virtualhosts/baikal.apache2
 COPY                    cal_infox.php /var/www/calendar_server/html/
 
+
 # The Baikal administration wizard creates these two config files when first run.  Preserve them
 # and save them to the resources/ directory.  These files must be preserved for upgrades.
 # Both files are already in the .gitignore file.
@@ -84,7 +86,8 @@ COPY                    cal_infox.php /var/www/calendar_server/html/
 # Baikal upgrade instructions at:  http://sabre.io/baikal/upgrade/
  COPY                    resources/config.php /var/www/calendar_server/Specific/
  COPY                    bin/mysql_config.sh /tmp/mysql_config.sh
- COPY                resources/htaccess /var/www/calendar_server/Specific/.htaccess
+  COPY                   bin/awslogs.sh /tmp/awslogs.sh
+ COPY                    resources/htaccess /var/www/calendar_server/Specific/.htaccess
 
 
 WORKDIR                 /var/www/calendar_server

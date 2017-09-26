@@ -27,8 +27,9 @@ mkdir -p "$APACHE_LOCK_DIR"
 mkdir -p "$APACHE_RUN_DIR"
 
 /tmp/mysql_config.sh
+/tmp/awslogs.sh
 
-service rsyslog start
+#service rsyslog start
 service postfix start
 
 /usr/sbin/apache2 -D FOREGROUND
