@@ -1,0 +1,20 @@
+- type: serial
+  exclude: master
+  steps:
+    - name: ecs_push_latest
+      service: calendar
+      type: push
+      image_tag: latest
+      image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
+      dockercfg_service: dockercfg_generator
+- type: serial
+  tag: master
+  steps:
+    - name: ecs_push_master
+      service: calendar
+      type: push
+      image_tag: '{{.Branch}}'
+      image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
+      dockercfg_service: dockercfg_generator
