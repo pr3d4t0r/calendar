@@ -3,7 +3,6 @@
 **swp
 db/**
 legacy/**
-resources/config**
 swapenv
 web
 webbuild
