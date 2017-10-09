@@ -4,9 +4,6 @@ calendar:
         image: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
         dockercfg_service: dockercfg_generator
         dockerfile: Dockerfile
-        args:
-            RAILS_ENV: test
-        encrypted_args_file: build_args.encrypted
     cached: true
     environment:
         ENVIRONMENT: test

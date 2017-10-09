@@ -21,6 +21,7 @@ LABEL                   version="2.1"
 #ENV                     LC_ALL en_US.UTF-8
 #ENV                     TERM=xterm
 
+RUN echo $ENVIRONMENT
 
 ### "configure-apt"
 RUN                     echo "APT::Get::Assume-Yes true;" >> /etc/apt/apt.conf.d/80custom; \
@@ -86,7 +87,7 @@ COPY                    cal_infox.php /var/www/calendar_server/html/
 # Baikal upgrade instructions at:  http://sabre.io/baikal/upgrade/
  COPY                    resources/config.php /var/www/calendar_server/Specific/
  COPY                    bin/mysql_config.sh /tmp/mysql_config.sh
-  COPY                   bin/awslogs.sh /tmp/awslogs.sh
+ COPY                    bin/awslogs.sh /tmp/awslogs.sh
  COPY                    resources/htaccess /var/www/calendar_server/Specific/.htaccess
 
 

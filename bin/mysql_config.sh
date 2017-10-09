@@ -1,7 +1,8 @@
 #!/bin/sh
 
-eval $(aws s3 cp s3://athleteone-docker/${ENVIRONMENT}_calendar.txt - | sed 's/^/export /')
-
+if [ "$ENVIRONMENT" != "test" ];then
+ eval $(aws s3 cp s3://athleteone-docker/${ENVIRONMENT}_calendar.txt - | sed 's/^/export /')
+fi
 cat > /var/www/calendar_server/Specific/config.system.php << EOF
 <?php
 ##############################################################################

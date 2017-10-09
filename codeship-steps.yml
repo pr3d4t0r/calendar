@@ -1,3 +1,8 @@
+# - type: serial
+#   steps:
+#     - name: build
+#       service: calendar
+#       command: echo 'build'
 - type: serial
   exclude: master
   steps:
