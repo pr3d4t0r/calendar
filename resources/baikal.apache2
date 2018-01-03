@@ -5,6 +5,7 @@ ServerName calendar.example.org
 	ServerName calendar.myathleteone.com
 
     RewriteEngine On
+		RewriteRule (.*)/calendar/(.*) $1/$2
     RewriteRule /.well-known/carddav /dav.php [R,L]
     RewriteRule /.well-known/caldav /dav.php [R,L]
 
