@@ -28,6 +28,7 @@ mkdir -p "$APACHE_RUN_DIR"
 
 /tmp/mysql_config.sh
 /tmp/awslogs.sh
+/tmp/logrotate.sh
 
 #service rsyslog start
 service postfix start

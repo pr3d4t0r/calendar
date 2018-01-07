@@ -47,16 +47,16 @@ log_stream_name = $cluster/$container_instance_id
 datetime_format = %Y-%m-%dT%H:%M:%SZ
 
 [/var/log/apache2/access.log]
-file = /var/log/nginx/access.log
-log_group_name = apache_access
-log_stream_name = $cluster/$container_instance_id
+file = /var/log/apache2/access.log
+log_group_name = calendar_apache_access
+log_stream_name = $ENVIRONMENT/$cluster/$container_instance_id
 time_zone = LOCAL
 #datetime_format = %Y-%m-%dT%H:%M:%S
 
 [/var/log/apache2/error.log]
 file = /var/log/apache2/error.log
-log_group_name = apache_error
-log_stream_name = $cluster/$container_instance_id
+log_group_name = calendar_apache_error
+log_stream_name = $ENVIRONMENT/$container_instance_id
 time_zone = LOCAL
 #datetime_format = %Y-%m-%dT%H:%M:%S
 EOF

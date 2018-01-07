@@ -23,3 +23,15 @@
       image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
       registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
       dockercfg_service: dockercfg_generator
+- type: serial
+  exclude: master
+  steps:
+    - name: ecsdeploy_staging
+      service: calendar
+      command: bin/ecs-deploy -c athleteone -n calendar-staging --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+- type: serial
+  tag: master
+  steps:
+    - name: ecsdeploy_production
+      service: calendar
+      command: bin/ecs-deploy -c athleteone -n calendar --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
