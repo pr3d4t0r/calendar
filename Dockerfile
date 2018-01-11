@@ -87,8 +87,8 @@ COPY                    cal_infox.php /var/www/calendar_server/html/
 # Baikal upgrade instructions at:  http://sabre.io/baikal/upgrade/
  COPY                    resources/config.php /var/www/calendar_server/Specific/
  COPY                    bin/mysql_config.sh /tmp/mysql_config.sh
- COPY                    bin/awslogs.sh /tmp/awslogs.sh
  COPY                    bin/logrotate.sh /tmp/logrotate.sh
+ COPY                    bin/loggly.sh /tmp/loggly.sh
  COPY                    resources/htaccess /var/www/calendar_server/Specific/.htaccess
 
 

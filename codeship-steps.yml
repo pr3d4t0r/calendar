@@ -26,12 +26,12 @@
 - type: serial
   exclude: master
   steps:
-    - name: ecsdeploy_staging
-      service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar-staging --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+    - name: deploy to staging
+      service: ecsdeploy
+      command: -c athleteone -n calendar-staging -t 300 -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
 - type: serial
   tag: master
   steps:
-    - name: ecsdeploy_production
-      service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
+    - name: deploy to production
+      service: ecsdeploy
+      command: -c athleteone -n calendar -t 300 -e CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar

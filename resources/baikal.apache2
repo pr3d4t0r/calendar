@@ -4,10 +4,13 @@ ServerName calendar.example.org
 	DocumentRoot /var/www/calendar_server/html
 	ServerName calendar.myathleteone.com
 
-    RewriteEngine On
-		RewriteRule (.*)/calendar/(.*) $1/$2
-    RewriteRule /.well-known/carddav /dav.php [R,L]
-    RewriteRule /.well-known/caldav /dav.php [R,L]
+	ErrorLog /var/log/apache2/calendar_error.log
+	CustomLog /var/log/apache2/calendar_access.log vhost_combined
+
+  RewriteEngine On
+	RewriteRule (.*)/calendar/(.*) $1/$2
+  RewriteRule /.well-known/carddav /dav.php [R,L]
+  RewriteRule /.well-known/caldav /dav.php [R,L]
 
 	<Directory "/var/www/calendar_server/html">
 		Options None
