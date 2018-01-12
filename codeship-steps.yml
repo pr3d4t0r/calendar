@@ -28,7 +28,7 @@
   steps:
     - name: deploy to staging
       service: ecsdeploy
-      command: -c athleteone -n calendar-staging -t 300 -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
+      command: -c athleteone-staging -n calendar -t 300 -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
 - type: serial
   tag: master
   steps:
