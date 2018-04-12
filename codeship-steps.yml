@@ -34,4 +34,4 @@
   steps:
     - name: deploy to production
       service: ecsdeploy
-      command: -c athleteone -n calendar -t 300 -e CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      command: -c athleteone-production -n calendar -t 300 -e CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
