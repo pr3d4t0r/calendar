@@ -30,22 +30,12 @@
   exclude: "(^master|^v.*|^V.*)$"
   steps:
     - name: deploy to staging
-<<<<<<< HEAD
       service: ecsdeploy
-      command: -c athleteone-staging -n calendar -t 300 -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
-=======
-      service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar-staging --enable-rollback -e $CI_COMMIT_ID -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
->>>>>>> master
+      command: -c athleteone -n calendar-staging --enable-rollback -e $CI_COMMIT_ID -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
 - type: serial
   tag: "(^v.*|^V.*)$"
   exclude: "(^master|^dev-)$"
   steps:
     - name: deploy to production
-<<<<<<< HEAD
       service: ecsdeploy
       command: -c athleteone-production -n calendar -t 300 -e CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
-=======
-      service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar --enable-rollback -e $CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
->>>>>>> master
