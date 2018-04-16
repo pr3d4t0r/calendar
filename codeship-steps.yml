@@ -1,0 +1,41 @@
+# - type: serial
+#   steps:
+#     - name: build
+#       service: calendar
+#       command: echo 'build'
+- type: serial
+  tag: "(^dev-.*)$"
+  exclude: "(^master|^v.*|^V.*)$"
+  steps:
+    - name: ecs_push_staging
+      service: calendar
+      type: push
+      image_tag: '{{.CommitID}}'
+      image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
+      dockercfg_service: dockercfg_generator
+- type: serial
+  tag: "(^[v].*|^V.*)$"
+  exclude: "(^master|^dev-)$"
+  steps:
+    - name: ecs_push_production
+      service: calendar
+      type: push
+      image_tag: '{{.Branch}}'
+      image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
+      dockercfg_service: dockercfg_generator
+- type: serial
+  tag: "(^dev-.*)$"
+  exclude: "(^master|^v.*|^V.*)$"
+  steps:
+    - name: deploy to staging
+      service: ecsdeploy
+      command: -c athleteone-staging -n calendar -e CI_COMMIT_ID -t 300 -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+- type: serial
+  tag: "(^v.*|^V.*)$"
+  exclude: "(^master|^dev-)$"
+  steps:
+    - name: deploy to production
+      service: ecsdeploy
+      command: -c athleteone-production -n calendar -t 300 -e CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar

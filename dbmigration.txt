@@ -1,0 +1,19 @@
+
+
+git clone https://github.com/sabre-io/dav.git
+git fetch --all --tags --prune
+git checkout tags/3.1.4 -b 3.1.4
+
+curl -sS https://getcomposer.org/installer | php -d allow_url_fopen=on
+php -d allow_url_fopen=on ./composer.phar install
+
+php ./migrateto20.php "mysql:host=192.168.86.26;dbname=baikal_development" root ''
+php ./migrateto21.php "mysql:host=192.168.86.26;dbname=baikal_development" root ''
+php ./migrateto30.php "mysql:host=192.168.86.26;dbname=baikal_development" root ''
+
+# haven't move to release 3.2 yet
+#php ./migrateto32.php "mysql:host=192.168.86.26;dbname=baikal_development" root ''
+
+php ./migrateto20.php "mysql:host=db1.myathleteone.com;dbname=baikal_staging" cwilhelm ''
+php ./migrateto21.php "mysql:host=db1.myathleteone.com;dbname=baikal_staging" cwilhelm ''
+php ./migrateto30.php "mysql:host=db1.myathleteone.com;dbname=baikal_staging" cwilhelm ''

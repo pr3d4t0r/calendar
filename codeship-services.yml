@@ -1,0 +1,32 @@
+
+calendar:
+    build:
+        image: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+        dockercfg_service: dockercfg_generator
+        dockerfile: Dockerfile
+    cached: true
+    environment:
+        ENVIRONMENT: test
+        DB_HOST: mysql
+        AWS_DEFAULT_REGION: us-west-2
+    encrypted_env_file: env.encrypted
+    links:
+        - mysql
+mysql:
+  image: mysql:5.6.37
+  environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: baikal_test
+  cached: true
+
+ecsdeploy:
+  image: silintl/ecs-deploy:latest
+  encrypted_env_file: env.encrypted
+  environment:
+    - AWS_DEFAULT_REGION=us-west-2
+  cached: true
+
+dockercfg_generator:
+  image: codeship/aws-ecr-dockercfg-generator
+  add_docker: true
+  encrypted_env_file: env.encrypted
