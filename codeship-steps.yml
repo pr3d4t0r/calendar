@@ -31,7 +31,7 @@
   steps:
     - name: deploy to staging
       service: ecsdeploy
-      command: -c athleteone -n calendar-staging --enable-rollback -e $CI_COMMIT_ID -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      command: -c athleteone -n calendar-staging --enable-rollback -e CI_COMMIT_ID -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
 - type: serial
   tag: "(^v.*|^V.*)$"
   exclude: "(^master|^dev-)$"
