@@ -4,19 +4,21 @@
 #       service: calendar
 #       command: echo 'build'
 - type: serial
-  exclude: master
+  tag: "(^dev-.*)$"
+  exclude: "(^master|^v.*|^V.*)$"
   steps:
-    - name: ecs_push_latest
+    - name: ecs_push_staging
       service: calendar
       type: push
-      image_tag: latest
+      image_tag: '{{.CommitID}}'
       image_name: 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
       registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
       dockercfg_service: dockercfg_generator
 - type: serial
-  tag: master
+  tag: "(^[v].*|^V.*)$"
+  exclude: "(^master|^dev-)$"
   steps:
-    - name: ecs_push_master
+    - name: ecs_push_production
       service: calendar
       type: push
       image_tag: '{{.Branch}}'
@@ -24,14 +26,16 @@
       registry: https://233568328593.dkr.ecr.us-west-2.amazonaws.com
       dockercfg_service: dockercfg_generator
 - type: serial
-  exclude: master
+  tag: "(^dev-.*)$"
+  exclude: "(^master|^v.*|^V.*)$"
   steps:
-    - name: ecsdeploy_staging
+    - name: deploy to staging
       service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar-staging --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
+      command: bin/ecs-deploy -c athleteone -n calendar-staging --enable-rollback -e $CI_COMMIT_ID -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
 - type: serial
-  tag: master
+  tag: "(^v.*|^V.*)$"
+  exclude: "(^master|^dev-)$"
   steps:
-    - name: ecsdeploy_production
+    - name: deploy to production
       service: calendar
-      command: bin/ecs-deploy -c athleteone -n calendar --enable-rollback -e $CI_TIMESTAMP -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar:latest
+      command: bin/ecs-deploy -c athleteone -n calendar --enable-rollback -e $CI_BRANCH -i 233568328593.dkr.ecr.us-west-2.amazonaws.com/calendar
